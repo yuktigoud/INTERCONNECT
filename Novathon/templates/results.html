@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Recommended Opportunities</h1>
+
+{% if jobs|length == 0 %}
+<p class="error">❌ No matching jobs found. Try different inputs.</p>
+{% else %}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Score</th>
+        <th>Match</th>
+    </tr>
+
+    {% for job in jobs %}
+    <tr>
+        <td>
+            <a href="/job/{{ job.job_id }}" class="job-link">{{ job.title }}</a>
+        </td>
+        
+        
+        <td>{{ job.location }}</td>
+        <td>{{ job.type }}</td>
+        <td>{{ job.score }}</td>
+        <td>
+            {% if job.score >= 6 %}
+                🟢 High Match
+            {% elif job.score >= 3 %}
+                🟡 Medium Match
+            {% else %}
+                🔴 Low Match
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+</body>
+</html>

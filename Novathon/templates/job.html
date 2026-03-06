@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>{{ job.title }}</h1>
+
+<div class="form-container">
+    <p><b>Location:</b> {{ job.location }}</p>
+    <p><b>Type:</b> {{ job.type }}</p>
+    <p><b>Domain:</b> {{ job.domain }}</p>
+    <p><b>Required Skills:</b> {{ job.skills }}</p>
+    <p><b>Match Score:</b> {{ score }}</p>
+
+    <br>
+    <a href="/apply/{{ job.job_id }}">
+        <button>Apply Now</button>
+    </a>
+</div>
+
+</body>
+</html>

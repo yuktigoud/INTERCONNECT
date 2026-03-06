@@ -1,0 +1,5 @@
+job_id,title,skills,location,type,domain
+1,Python Developer Intern,"python,sql,django",Hyderabad,Internship,Software Development
+2,Web Developer Intern,"html,css,javascript",Bangalore,Internship,Web Development
+3,Data Analyst,"python,excel,statistics",Hyderabad,Entry Level,Data Science
+4,Java Developer,"java,spring,sql",Chennai,Entry Level,Software Development

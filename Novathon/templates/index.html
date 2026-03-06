@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Career Recommendation Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Internship & Entry-Level Job Portal</h1>
+<p style="text-align:center; color:white;">
+    Welcome, <b>{{ session['user'] }}</b> 👋
+</p>
+<div class="portal-layout">
+    <div class="portal-links portal-left">
+        <a class="portal-card" href="/skill-gap">
+            <span class="portal-title">Skill Gap</span>
+            <span class="portal-subtitle">Analyze missing skills</span>
+        </a>
+        <a class="portal-card" href="/confidence">
+            <span class="portal-title">Confidence + Resume</span>
+            <span class="portal-subtitle">Score + resume feedback</span>
+        </a>
+        <a class="portal-card" href="/readiness">
+            <span class="portal-title">Readiness</span>
+            <span class="portal-subtitle">Check job readiness</span>
+        </a>
+    </div>
+
+    <div class="form-container form-compact">
+        <form method="POST" enctype="multipart/form-data">
+
+        <label>Skills (comma separated)</label>
+        <input type="text" name="skills" id="skills" required placeholder="Python, SQL">
+
+        <label>Preferred Location</label>
+        <input type="text" name="location" required placeholder="Hyderabad">
+
+        <label>Career Interest</label>
+        <input type="text" name="interest" required placeholder="Data Science">
+
+        <label>Upload Resume (PDF/Text)</label>
+        <input type="file" name="resume" accept=".pdf,.txt">
+
+        <button id="recommendBtn" type="submit"
+                onclick="this.innerText='Finding jobs… ⏳'">
+            Get Recommendations
+        </button>
+
+        </form>
+    </div>
+
+    <div class="portal-links portal-right">
+        <a class="portal-card" href="/learning">
+            <span class="portal-title">Learning</span>
+            <span class="portal-subtitle">Curated resources</span>
+        </a>
+        <a class="portal-card" href="/domain-switch">
+            <span class="portal-title">Domain Switch</span>
+            <span class="portal-subtitle">Transition plan advisor</span>
+        </a>
+        <a class="portal-card" href="/location-reality">
+            <span class="portal-title">Location Reality</span>
+            <span class="portal-subtitle">Check local demand</span>
+        </a>
+    </div>
+</div>
+
+<div style="position:fixed; top:20px; right:30px;">
+    <a href="/logout">Logout</a>
+</div>
+</div>
+
+{% if searched %}
+<h2>Recommended Opportunities</h2>
+
+{% if jobs|length == 0 %}
+<p class="error">❌ No matching jobs found. Try different inputs.</p>
+{% else %}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Score</th>
+    </tr>
+    {% for job in jobs %}
+    <tr>
+        <td>{{ job.title }}</td>
+        <td>{{ job.location }}</td>
+        <td>{{ job.type }}</td>
+        <td>{{ job.score }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endif %}
+<script>
+    const interestInput = document.querySelector('input[name="interest"]');
+    const btn = document.getElementById("recommendBtn");
+
+    interestInput.addEventListener("input", () => {
+        const value = interestInput.value.toLowerCase();
+
+        btn.className = ""; // reset
+
+        if (value.includes("data")) {
+            btn.classList.add("data");
+        } 
+        else if (value.includes("web")) {
+            btn.classList.add("web");
+        } 
+        else if (value.includes("software")) {
+            btn.classList.add("software");
+        }
+    });
+</script>
+<script>
+    const skillList = ["Python","SQL","Java","HTML","CSS","JavaScript","Django","Flask","Excel"];
+    const input = document.getElementById("skills");
+    
+    input.addEventListener("focus", () => {
+        input.setAttribute("list", "skillsList");
+    });
+    
+    document.body.insertAdjacentHTML("beforeend", `
+    <datalist id="skillsList">
+        ${skillList.map(s => `<option value="${s}">`).join("")}
+    </datalist>
+    `);
+    </script>
+<script>
+    window.onload = () => {
+        document.querySelector('[name="skills"]').value = "";
+        document.querySelector('[name="location"]').value = "";
+        document.querySelector('[name="interest"]').value = "";
+    };
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Location Job Reality Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Location Job Reality Checker</h1>
+            <p class="page-subtitle">See how strong the local demand is for your domain.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Location</label>
+            <input type="text" name="location" placeholder="Hyderabad">
+
+            <label>Domain</label>
+            <input type="text" name="domain" placeholder="Data Science">
+
+            <button type="submit">Check Demand</button>
+        </form>
+
+        {% if result %}
+        <div class="result-card">
+            <strong>{{result}}</strong>
+            <p>{{detail}}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Readiness Check</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Readiness Check</h1>
+            <p class="page-subtitle">See how close you are to being job-ready.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Enter Confidence Score</label>
+            <input type="number" name="score" min="0" max="100" placeholder="0 - 100" required>
+            <button type="submit">Check</button>
+        </form>
+
+        {% if result %}
+        <div class="result-card">
+            <strong>Result</strong>
+            <p>{{result}}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

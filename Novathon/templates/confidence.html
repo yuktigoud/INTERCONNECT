@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Career Confidence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Confidence + Resume Analyzer</h1>
+            <p class="page-subtitle">Confidence scoring plus quick resume feedback in one place.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Skills match %</label>
+            <input type="number" name="skills" min="0" max="100" placeholder="0 - 100" required>
+
+            <label>Projects completed</label>
+            <input type="number" name="projects" min="0" placeholder="0" required>
+
+            <label>Internships</label>
+            <input type="number" name="internships" min="0" placeholder="0" required>
+
+            <label>Paste Resume Summary / Highlights</label>
+            <textarea name="resume_text" rows="6" placeholder="Paste summary, experience bullets, or skills section..."></textarea>
+
+            <label>Skills in Resume (comma separated)</label>
+            <input type="text" name="skills_text" placeholder="Python, SQL, React">
+
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if score is not none %}
+        <div class="result-card">
+            <strong>Confidence Score</strong>
+            <p>{{score}}</p>
+        </div>
+        {% endif %}
+
+        {% if resume_score is not none %}
+        <div class="result-card">
+            <strong>Resume Strength Score: {{resume_score}} / 100</strong>
+            <ul class="chip-list" style="margin-top:10px;">
+                {% for item in feedback %}
+                <li class="chip" style="background:#5b86e5;">{{item}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

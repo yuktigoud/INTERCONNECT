@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Domain Switch Advisor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Domain Switch Advisor</h1>
+            <p class="page-subtitle">Plan a smooth transition to your target domain.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Current Domain</label>
+            <input type="text" name="current_domain" placeholder="Software Engineering">
+
+            <label>Target Domain</label>
+            <input type="text" name="target_domain" placeholder="Data Science">
+
+            <label>Your Skills (comma separated)</label>
+            <input type="text" name="skills" placeholder="Python, SQL, Git">
+
+            <button type="submit">Get Advice</button>
+        </form>
+
+        {% if advice %}
+        <div class="result-card">
+            <strong>Advisor Notes</strong>
+            <div style="margin-top:10px;">
+                {% for item in advice %}
+                    <p>{{item}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if bridge_skills %}
+        <div class="result-card">
+            <strong>Bridge Skills to Learn</strong>
+            <ul class="chip-list">
+                {% for item in bridge_skills %}
+                <li class="chip">{{item}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

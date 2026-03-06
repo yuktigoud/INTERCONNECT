@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Resources</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Learning Resources</h1>
+            <p class="page-subtitle">Find focused learning links for your next skill.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Enter Skill</label>
+            <input type="text" name="skill" placeholder="Python, SQL, React" required>
+            <button type="submit">Get Resource</button>
+        </form>
+
+        {% if resources %}
+        <div class="result-card">
+            <strong>Recommended Resources</strong>
+            <div style="margin-top:10px;">
+                {% for title, url in resources %}
+                    <p><a class="job-link" href="{{url}}" target="_blank" rel="noopener">{{title}}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        {% elif skill_query %}
+        <div class="result-card">
+            <strong>No resources found</strong>
+            <p>Try keywords like Python, SQL, ML, Flask, JavaScript, HTML, CSS, React, Data Science.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

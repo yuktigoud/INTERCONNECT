@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | Career Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Sign Up</h1>
+
+<div class="form-container">
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>   
+        <input type="password" name="password" id="signupPassword" required>
+        <small id="strength" style="font-weight:600;"></small>
+        
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p style="text-align:center; margin-top:15px;">
+        Already have an account? <a href="/login" class="login-link">Login</a>
+
+    </p>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+<script>
+    const pwd = document.getElementById("signupPassword");
+    const strength = document.getElementById("strength");
+    
+    pwd.addEventListener("input", () => {
+        const val = pwd.value;
+        if (val.length < 6) {
+            strength.textContent = "Weak password";
+            strength.style.color = "red";
+        } else if (val.match(/[A-Z]/) && val.match(/[0-9]/)) {
+            strength.textContent = "Strong password";
+            strength.style.color = "green";
+        } else {
+            strength.textContent = "Medium password";
+            strength.style.color = "orange";
+        }
+    });
+    </script>
+    

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | INTERN CONNECT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>INTERNCONNECT</h1>
+<h2>Login</h2>
+<div class="form-container">
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <div style="position:relative;">
+            <input type="password" name="password" id="password" required>
+            <span onclick="togglePassword()" 
+                  style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer;">
+            </span>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p style="text-align:center; margin-top:15px;">
+        New user? <a href="/signup" class="signup-link">Sign up</a>
+
+    </p>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
+
+<script>
+function togglePassword() {
+    const pwd = document.getElementById("password");
+    pwd.type = pwd.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

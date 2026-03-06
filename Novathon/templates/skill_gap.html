@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skill Gap Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="top-right-link">
+    <a href="/">Back to Portal</a>
+</div>
+
+<div class="page-shell">
+    <div class="page-card">
+        <div class="page-header">
+            <h1>Skill Gap Analyzer</h1>
+            <p class="page-subtitle">Compare your skills with your target role.</p>
+        </div>
+
+        <form class="stacked-form" method="POST">
+            <label>Your skills (comma separated)</label>
+            <input type="text" name="skills" placeholder="Python, SQL, Excel" required>
+
+            <label>Target role</label>
+            <input type="text" name="role" placeholder="Data Analyst" required>
+
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if note %}
+        <div class="result-card">
+            <strong>Role Not Found</strong>
+            <p>{{note}}</p>
+        </div>
+        {% endif %}
+
+        {% if required %}
+        <div class="result-card">
+            <strong>Role: {{role_name|title}}</strong>
+            <p>Required skills for this role:</p>
+            <ul class="chip-list">
+            {% for r in required %}
+                <li class="chip">{{r}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if matched %}
+        <div class="result-card">
+            <strong>Your Matched Skills</strong>
+            <ul class="chip-list">
+            {% for m in matched %}
+                <li class="chip">{{m}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if missing %}
+        <div class="result-card">
+            <strong>Missing Skills</strong>
+            <ul class="chip-list">
+            {% for m in missing %}
+                <li class="chip">{{m}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
